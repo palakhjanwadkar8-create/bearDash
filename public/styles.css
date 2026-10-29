@@ -1,0 +1,161 @@
+/* Bear Dash: Pixel Adventure — Custom Pixel Theme CSS */
+
+:root {
+  --color-peach: #FFB085;
+  --color-orange: #FF7B54;
+  --color-pink: #FF758F;
+  --color-purple: #9D4EDD;
+  --color-blue: #4CC9F0;
+  --color-green: #70E000;
+  --color-yellow: #FFD166;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #1A1325;
+}
+::-webkit-scrollbar-thumb {
+  background: #FF758F;
+  border-radius: 5px;
+  border: 2px solid #1A1325;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF7B54;
+}
+
+/* Pixel Rendering Precision */
+canvas.pixel-canvas {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Retro Pixel Button Style */
+.btn-pixel {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.35);
+  border-right: 3px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.08s ease-in-out;
+  cursor: pointer;
+  user-select: none;
+}
+.btn-pixel:active {
+  transform: translateY(4px);
+  border-bottom-width: 1px;
+}
+
+.btn-pixel-gold {
+  background: linear-gradient(180deg, #FFE066 0%, #FFB703 100%);
+  color: #381A00;
+  border-color: #A36B00;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.btn-pixel-gold:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 18px rgba(255, 209, 102, 0.5);
+}
+
+.btn-pixel-pink {
+  background: linear-gradient(180deg, #FF8DA1 0%, #FF477E 100%);
+  color: white;
+  border-color: #9E1045;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.btn-pixel-pink:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 18px rgba(255, 117, 143, 0.5);
+}
+
+.btn-pixel-purple {
+  background: linear-gradient(180deg, #B565F2 0%, #7B2CBF 100%);
+  color: white;
+  border-color: #4A1078;
+}
+.btn-pixel-purple:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 18px rgba(157, 78, 221, 0.5);
+}
+
+.btn-pixel-blue {
+  background: linear-gradient(180deg, #6AD6F8 0%, #20A4D6 100%);
+  color: white;
+  border-color: #0E6589;
+}
+.btn-pixel-blue:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 18px rgba(76, 201, 240, 0.5);
+}
+
+/* Pixel Card & Panel Borders */
+.pixel-box {
+  background: #251B35;
+  border: 4px solid #FF758F;
+  border-radius: 12px;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.15);
+}
+
+.pixel-box-gold {
+  background: #2D2316;
+  border: 4px solid #FFD166;
+  border-radius: 12px;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Pulsing Low Health Warning Screen Vignette */
+@keyframes red-heartbeat {
+  0% { box-shadow: inset 0 0 30px 10px rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: inset 0 0 70px 25px rgba(239, 68, 68, 0.85); }
+  100% { box-shadow: inset 0 0 30px 10px rgba(239, 68, 68, 0.4); }
+}
+
+.danger-vignette {
+  animation: red-heartbeat 0.9s infinite ease-in-out;
+  pointer-events: none;
+}
+
+/* Floating Animation */
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.gentle-float {
+  animation: gentle-float 3s ease-in-out infinite;
+}
+
+/* Scanlines Effect for Retro Option */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Mobile Touch Controls */
+.touch-control {
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Rainbow text gradient */
+.rainbow-text {
+  background: linear-gradient(90deg, #FF758F, #FFB085, #FFD166, #70E000, #4CC9F0, #9D4EDD);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+

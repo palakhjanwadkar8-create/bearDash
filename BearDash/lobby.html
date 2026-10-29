@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Lobby & Wardrobe — Bear Dash: Pixel Adventure</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/lobby.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="logo-area">
+        <div class="logo-icon">🐻</div>
+        <div>
+          <span class="logo-text-title">BEAR DASH</span>
+          <span class="logo-badge">LOBBY</span>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="lobby.html" class="nav-link active">Wardrobe 👑</a>
+        <a href="game.html" class="btn-pixel btn-pixel-gold" style="padding: 8px 14px; font-size: 10px;">Race Now 🏁</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="lobby-container">
+    <!-- Room Header -->
+    <div class="pixel-box-gold room-header">
+      <div>
+        <div class="room-title-sub">MULTIPLAYER LOBBY</div>
+        <div class="room-code-display">
+          ROOM: <span id="roomCodeText" class="room-code-tag">BEAR-7788</span>
+        </div>
+        <div style="font-size: 13px; color: #D1D5DB; margin-top: 4px;">Share this code with friends to race together!</div>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <button id="btnCopyCode" class="btn-pixel btn-pixel-gold">COPY CODE 📋</button>
+        <a href="index.html" class="btn-pixel" style="background: #4B5563;">LEAVE</a>
+      </div>
+    </div>
+
+    <div class="lobby-grid">
+      <!-- Left Column: Connected Racers -->
+      <div class="pixel-box" style="padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 12px;">
+          <h3 style="font-family: 'Press Start 2P'; font-size: 11px; color: var(--color-pink);">
+            RACERS READY (<span id="playerCountLabel">4</span> / 8)
+          </h3>
+          <span style="font-family: 'Press Start 2P'; font-size: 9px; color: var(--color-green);">● LIVE READY</span>
+        </div>
+
+        <div class="racers-list" id="racersList">
+          <!-- Local Racer -->
+          <div class="racer-card is-local">
+            <div class="racer-info">
+              <div class="racer-avatar">🐻</div>
+              <div>
+                <div class="racer-name">
+                  <span id="lobbyLocalName">Baby Bear 🐻</span>
+                  <span class="badge-host">HOST (YOU)</span>
+                </div>
+                <div id="lobbyLocalDetails" class="racer-details">Honey Bear • Crown</div>
+              </div>
+            </div>
+            <span style="font-family: 'Press Start 2P'; font-size: 10px; color: var(--color-green);">READY ✔</span>
+          </div>
+
+          <!-- AI Racers -->
+          <div class="racer-card">
+            <div class="racer-info">
+              <div class="racer-avatar">🍓</div>
+              <div>
+                <div class="racer-name">Bramble <span class="badge-bot">BOT</span></div>
+                <div class="racer-details">Brown Bear • Strawberry Cap</div>
+              </div>
+            </div>
+            <span style="font-family: 'Press Start 2P'; font-size: 10px; color: var(--color-green);">READY ✔</span>
+          </div>
+
+          <div class="racer-card">
+            <div class="racer-info">
+              <div class="racer-avatar">🧇</div>
+              <div>
+                <div class="racer-name">Waffles <span class="badge-bot">BOT</span></div>
+                <div class="racer-details">Golden Bear • Chef Toque</div>
+              </div>
+            </div>
+            <span style="font-family: 'Press Start 2P'; font-size: 10px; color: var(--color-green);">READY ✔</span>
+          </div>
+
+          <div class="racer-card">
+            <div class="racer-info">
+              <div class="racer-avatar">🐼</div>
+              <div>
+                <div class="racer-name">Pip The Panda <span class="badge-bot">BOT</span></div>
+                <div class="racer-details">Panda Cub • Propeller Beanie</div>
+              </div>
+            </div>
+            <span style="font-family: 'Press Start 2P'; font-size: 10px; color: var(--color-green);">READY ✔</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Match Options & Start -->
+      <div class="pixel-box" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; gap: 20px;">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <h3 style="font-family: 'Press Start 2P'; font-size: 11px; color: var(--color-yellow);">MATCH OPTIONS</h3>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+              <span>AI Racers to Fill:</span>
+              <span id="botCountVal" style="font-family: 'Press Start 2P'; font-size: 11px; color: var(--color-yellow);">3 Bots</span>
+            </div>
+            <input type="range" id="botRange" min="0" max="7" value="3" style="width: 100%;" />
+          </div>
+
+          <div style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: 12px; font-size: 12px; line-height: 1.6; color: #CBD5E1;">
+            <div style="font-weight: 700; color: white; margin-bottom: 4px;">Race Course:</div>
+            <div>• Biomes: 6 Distinct Zones</div>
+            <div>• Length: 13,200 Pixels</div>
+            <div>• Rules: 3 Hearts Survival</div>
+          </div>
+        </div>
+
+        <button onclick="window.location.href='game.html'" class="btn-pixel btn-pixel-gold" style="width: 100%; padding: 18px; font-size: 14px;">
+          START RACE NOW 🏁
+        </button>
+      </div>
+    </div>
+
+    <!-- Wardrobe Customizer -->
+    <div class="pixel-box wardrobe-section">
+      <h3 style="font-family: 'Press Start 2P'; font-size: 12px; color: var(--color-yellow); margin-bottom: 16px;">
+        RACER WARDROBE & SKINS 👑
+      </h3>
+
+      <div style="margin-bottom: 20px;">
+        <label style="font-family: 'Press Start 2P'; font-size: 10px; color: #D1D5DB; display: block; margin-bottom: 6px;">RACER NAME</label>
+        <input type="text" id="racerNameInput" placeholder="Name your cub..." style="width: 100%; max-width: 320px; padding: 10px 14px; font-family: 'Fredoka', cursive; font-size: 15px; font-weight: bold; background: rgba(0,0,0,0.5); border: 2px solid var(--color-pink); border-radius: 10px; color: white;" maxlength="14" />
+      </div>
+
+      <!-- Fur Colors -->
+      <div style="margin-bottom: 20px;">
+        <div style="font-family: 'Press Start 2P'; font-size: 10px; color: var(--color-pink); margin-bottom: 8px;">FUR COLORS</div>
+        <div class="wardrobe-grid" id="furGrid">
+          <button class="item-btn selected" data-fur="brown"><div class="item-swatch" style="background: #B86227;"></div> Honey Bear</button>
+          <button class="item-btn" data-fur="white"><div class="item-swatch" style="background: #FFFFFF;"></div> Polar Bear</button>
+          <button class="item-btn" data-fur="caramel"><div class="item-swatch" style="background: #C97A34;"></div> Caramel Chew</button>
+          <button class="item-btn" data-fur="panda"><div class="item-swatch" style="background: #2B2D42;"></div> Panda Cub</button>
+          <button class="item-btn" data-fur="pink"><div class="item-swatch" style="background: #FF758F;"></div> Berry Blush</button>
+          <button class="item-btn" data-fur="shadow"><div class="item-swatch" style="background: #5C4B82;"></div> Midnight Cub</button>
+          <button class="item-btn" data-fur="golden"><div class="item-swatch" style="background: #FFD166;"></div> Golden Bear</button>
+        </div>
+      </div>
+
+      <!-- Hats -->
+      <div style="margin-bottom: 20px;">
+        <div style="font-family: 'Press Start 2P'; font-size: 10px; color: var(--color-yellow); margin-bottom: 8px;">HATS & ACCESSORIES</div>
+        <div class="wardrobe-grid" id="hatGrid">
+          <button class="item-btn selected" data-hat="crown">👑 Royal Crown</button>
+          <button class="item-btn" data-hat="chef">👨‍🍳 Chef Toque</button>
+          <button class="item-btn" data-hat="strawberry">🍓 Berry Cap</button>
+          <button class="item-btn" data-hat="propeller">🚁 Propeller Hat</button>
+          <button class="item-btn" data-hat="wizard">🧙 Starry Wizard</button>
+          <button class="item-btn" data-hat="viking">⚔️ Viking Horns</button>
+          <button class="item-btn" data-hat="flower">🌸 Flower Crown</button>
+          <button class="item-btn" data-hat="none">🐻 Bare Ears</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/audio.js"></script>
+  <script src="js/multiplayer.js"></script>
+  <script>
+    // Room code from URL or generate random
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomParam = urlParams.get('room');
+    const roomCode = roomParam ? roomParam.toUpperCase() : `BEAR-${Math.floor(1000 + Math.random() * 9000)}`;
+    document.getElementById('roomCodeText').innerText = roomCode;
+
+    // Load customization
+    let racer = JSON.parse(localStorage.getItem('bear_dash_racer') || '{}');
+    if (!racer.name) racer = { name: 'Baby Bear 🐻', fur: 'brown', hat: 'crown', scarf: 'red', backpack: 'honeypot' };
+
+    const nameInput = document.getElementById('racerNameInput');
+    nameInput.value = racer.name;
+    document.getElementById('lobbyLocalName').innerText = racer.name;
+
+    nameInput.addEventListener('input', (e) => {
+      racer.name = e.target.value;
+      document.getElementById('lobbyLocalName').innerText = racer.name;
+      localStorage.setItem('bear_dash_racer', JSON.stringify(racer));
+    });
+
+    // Fur selection
+    document.querySelectorAll('#furGrid .item-btn').forEach(btn => {
+      if (btn.dataset.fur === racer.fur) btn.classList.add('selected');
+      else btn.classList.remove('selected');
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#furGrid .item-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        racer.fur = btn.dataset.fur;
+        localStorage.setItem('bear_dash_racer', JSON.stringify(racer));
+      });
+    });
+
+    // Hat selection
+    document.querySelectorAll('#hatGrid .item-btn').forEach(btn => {
+      if (btn.dataset.hat === racer.hat) btn.classList.add('selected');
+      else btn.classList.remove('selected');
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#hatGrid .item-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        racer.hat = btn.dataset.hat;
+        localStorage.setItem('bear_dash_racer', JSON.stringify(racer));
+      });
+    });
+
+    // Copy Code Button
+    document.getElementById('btnCopyCode').addEventListener('click', () => {
+      navigator.clipboard?.writeText(roomCode);
+      const btn = document.getElementById('btnCopyCode');
+      btn.innerText = 'COPIED! ✔';
+      setTimeout(() => btn.innerText = 'COPY CODE 📋', 2000);
+    });
+
+    // Bot Range slider
+    const botRange = document.getElementById('botRange');
+    botRange.addEventListener('input', (e) => {
+      document.getElementById('botCountVal').innerText = `${e.target.value} Bots`;
+      document.getElementById('playerCountLabel').innerText = 1 + parseInt(e.target.value);
+    });
+  </script>
+</body>
+</html>

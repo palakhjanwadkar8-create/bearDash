@@ -1,0 +1,14 @@
+{
+  "name": "bear-dash-pixel-adventure",
+  "version": "1.0.0",
+  "description": "Multiplayer Cute Pixel Adventure Racing Game",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "node build.js",
+    "start": "node dist/server.js"
+  },
+  "keywords": ["game", "pixel-art", "multiplayer", "canvas", "react"],
+  "author": "Antigravity Team",
+  "license": "MIT"
+}
+

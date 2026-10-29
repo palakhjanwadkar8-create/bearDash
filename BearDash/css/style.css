@@ -1,0 +1,225 @@
+/* BearDash - Global Modern Pixel Art CSS Stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap');
+
+:root {
+  --color-peach: #FFB085;
+  --color-orange: #FF7B54;
+  --color-pink: #FF758F;
+  --color-purple: #9D4EDD;
+  --color-blue: #4CC9F0;
+  --color-green: #70E000;
+  --color-yellow: #FFD166;
+  --color-dark: #1A1224;
+  --color-darker: #130C1C;
+  --color-panel: #261A36;
+  --color-gold: #FFE066;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Fredoka', cursive, sans-serif;
+  background-color: var(--color-dark);
+  color: #FFFFFF;
+  line-height: 1.5;
+  overflow-x: hidden;
+  image-rendering: pixelated;
+}
+
+/* Typography */
+.font-pixel {
+  font-family: 'Press Start 2P', monospace;
+}
+.font-silkscreen {
+  font-family: 'Silkscreen', cursive, sans-serif;
+}
+.font-fun {
+  font-family: 'Fredoka', cursive, sans-serif;
+}
+
+/* Pixel Buttons */
+.btn-pixel {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: none;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.4);
+  border-right: 3px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.08s ease;
+  user-select: none;
+}
+.btn-pixel:active {
+  transform: translateY(4px);
+  border-bottom-width: 1px;
+}
+
+.btn-pixel-gold {
+  background: linear-gradient(180deg, #FFE066 0%, #FFB703 100%);
+  color: #381A00;
+  border-color: #A36B00;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.btn-pixel-gold:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 20px rgba(255, 209, 102, 0.5);
+}
+
+.btn-pixel-pink {
+  background: linear-gradient(180deg, #FF8DA1 0%, #FF477E 100%);
+  color: white;
+  border-color: #9E1045;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.btn-pixel-pink:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 20px rgba(255, 117, 143, 0.5);
+}
+
+.btn-pixel-purple {
+  background: linear-gradient(180deg, #B565F2 0%, #7B2CBF 100%);
+  color: white;
+  border-color: #4A1078;
+}
+.btn-pixel-purple:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 20px rgba(157, 78, 221, 0.5);
+}
+
+.btn-pixel-blue {
+  background: linear-gradient(180deg, #6AD6F8 0%, #20A4D6 100%);
+  color: white;
+  border-color: #0E6589;
+}
+.btn-pixel-blue:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 20px rgba(76, 201, 240, 0.5);
+}
+
+/* Pixel Card Containers */
+.pixel-box {
+  background: var(--color-panel);
+  border: 4px solid var(--color-pink);
+  border-radius: 16px;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.45), inset 0 2px 0 rgba(255, 255, 255, 0.15);
+}
+
+.pixel-box-gold {
+  background: #2E2114;
+  border: 4px solid var(--color-yellow);
+  border-radius: 16px;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.45), inset 0 2px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Floating Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 2.2s infinite ease-in-out;
+}
+
+/* Navigation Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(26, 18, 36, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 4px solid rgba(255, 117, 143, 0.4);
+  padding: 12px 20px;
+}
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: white;
+}
+.logo-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #FF7B54, #FFD166);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 4px 10px rgba(255, 123, 84, 0.4);
+}
+.logo-text-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  color: var(--color-yellow);
+  letter-spacing: 1px;
+}
+.logo-badge {
+  background: var(--color-pink);
+  color: white;
+  font-family: monospace;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-link {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: #D1D5DB;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.nav-link:hover, .nav-link.active {
+  background: var(--color-pink);
+  color: white;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #140D1C;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-pink);
+  border-radius: 5px;
+  border: 2px solid #140D1C;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-orange);
+}

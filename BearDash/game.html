@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Racing — Bear Dash: Pixel Adventure</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/game.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body style="background: #110A17; margin: 0; overflow: hidden;">
+
+  <div class="game-viewport">
+    <div class="canvas-wrapper">
+      <canvas id="gameCanvas" width="960" height="540"></canvas>
+
+      <!-- Danger Heartbeat Red Vignette -->
+      <div id="dangerVignette" class="danger-heartbeat" style="display: none;"></div>
+
+      <!-- In-Game HUD -->
+      <div class="game-hud">
+        <!-- Top Left -->
+        <div class="hud-left">
+          <!-- Lives ❤️ ❤️ ❤️ -->
+          <div class="hud-pill" id="hudLives">
+            <span style="font-size: 10px; color: #CBD5E1;">LIVES:</span>
+            <div class="lives-container">
+              <span class="heart-icon">❤️</span>
+              <span class="heart-icon">❤️</span>
+              <span class="heart-icon">❤️</span>
+            </div>
+          </div>
+
+          <!-- Gems & Score -->
+          <div class="hud-pill">
+            <div class="gems-counter">
+              <span>💎</span>
+              <span id="hudGems">0</span>
+            </div>
+            <div style="width: 1px; height: 12px; background: rgba(255,255,255,0.2);"></div>
+            <span id="hudScore" style="color: white;">0 pts</span>
+          </div>
+
+          <!-- Active Booster Timers -->
+          <div class="active-boosters-list" id="hudBoosters"></div>
+        </div>
+
+        <!-- Top Right -->
+        <div class="hud-right">
+          <div style="display: flex; gap: 8px;">
+            <div class="hud-pill" style="font-size: 9px;">
+              <span style="color: #70E000;">●</span> <span id="pingIndicator">24ms</span>
+            </div>
+            <button onclick="window.game.togglePause()" class="btn-pixel" style="background: rgba(0,0,0,0.6); padding: 8px 12px; font-size: 9px;">
+              ⏸️ PAUSE
+            </button>
+          </div>
+
+          <!-- Mini-Map Progress Card -->
+          <div class="hud-pill progress-card" style="flex-direction: column; align-items: stretch; gap: 2px;">
+            <div style="display: flex; justify-content: space-between; font-size: 9px; color: #CBD5E1;">
+              <span>START</span>
+              <span id="progressPct" style="color: var(--color-yellow);">🏁 0%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div id="progressBarFill" class="progress-bar-fill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Elimination Banner: BABY BEAR ELIMINATED -->
+      <div id="eliminationBanner" class="elimination-banner" style="display: none;">
+        <div style="font-size: 56px;">💔</div>
+        <div class="elimination-title">BABY BEAR ELIMINATED!</div>
+        <p style="font-size: 14px; color: #E2E8F0; max-width: 360px;">
+          You lost all your lives and poofed into a spectator ghost! Watch the remaining baby bears race to the finish line.
+        </p>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+          <button onclick="window.game.restart()" class="btn-pixel btn-pixel-gold">TRY AGAIN 🔄</button>
+          <a href="lobby.html" class="btn-pixel" style="background: #4B5563;">LOBBY 🏁</a>
+        </div>
+      </div>
+
+      <!-- Pause Modal -->
+      <div id="pauseModal" class="modal-backdrop">
+        <div class="pixel-box" style="padding: 30px; max-width: 340px; width: 100%; text-align: center;">
+          <h3 style="font-family: 'Press Start 2P'; font-size: 13px; color: var(--color-yellow); margin-bottom: 20px;">GAME PAUSED</h3>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <button onclick="window.game.togglePause()" class="btn-pixel btn-pixel-gold">RESUME</button>
+            <button onclick="window.game.restart()" class="btn-pixel btn-pixel-pink">RESTART RACE 🔄</button>
+            <a href="lobby.html" class="btn-pixel" style="background: #4B5563;">QUIT TO LOBBY</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Victory Podium Modal -->
+      <div id="victoryModal" class="modal-backdrop">
+        <div class="pixel-box-gold" style="padding: 30px; max-width: 440px; width: 100%; text-align: center;">
+          <div style="font-size: 54px;">🏆</div>
+          <div style="font-family: 'Press Start 2P'; font-size: 11px; color: var(--color-yellow); margin: 8px 0;">CHAMPION WINNER!</div>
+          <h2 id="winnerName" style="font-size: 26px; font-weight: 800; margin-bottom: 16px;">Baby Bear 🐻</h2>
+
+          <!-- Detailed Stats Breakdown Required by Prompt -->
+          <div style="background: rgba(0,0,0,0.5); padding: 16px; border-radius: 12px; font-size: 13px; text-align: left; line-height: 1.8; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between;">
+              <span>⏱️ Race Time:</span>
+              <strong id="winnerTime" style="color: var(--color-blue); font-family: monospace;">00:00s</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>❤️ Remaining Lives:</span>
+              <span id="winnerLives">❤️ ❤️ ❤️</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>💎 Total Gems:</span>
+              <strong id="winnerGems" style="color: var(--color-yellow);">0</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>⚡ Powerups Used:</span>
+              <strong id="winnerPowerups" style="color: #E0AAFF;">0</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>🌟 Bonus Score:</span>
+              <strong id="winnerBonus" style="color: var(--color-green);">+1500 pts</strong>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px;">
+            <button onclick="window.game.restart()" class="btn-pixel btn-pixel-gold" style="flex: 1;">PLAY AGAIN 🔄</button>
+            <a href="lobby.html" class="btn-pixel btn-pixel-purple" style="flex: 1;">LOBBY 🏁</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Touch Controls -->
+    <div class="mobile-controls">
+      <div style="display: flex; gap: 10px;">
+        <button id="btnLeft" class="touch-btn dpad-btn">◀</button>
+        <button id="btnRight" class="touch-btn dpad-btn">▶</button>
+      </div>
+      <div style="display: flex; gap: 12px;">
+        <button id="btnDash" class="touch-btn action-btn-dash">DASH</button>
+        <button id="btnJump" class="touch-btn action-btn-jump">JUMP</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts Loaded in Sequence -->
+  <script src="js/audio.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/obstacle.js"></script>
+  <script src="js/gems.js"></script>
+  <script src="js/powerups.js"></script>
+  <script src="js/mysterybox.js"></script>
+  <script src="js/levels.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/multiplayer.js"></script>
+  <script src="js/game.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.game = new Game();
+      window.game.start();
+    });
+  </script>
+</body>
+</html>
